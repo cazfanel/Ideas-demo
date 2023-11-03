@@ -17,6 +17,7 @@ final class IdeasController extends AbstractController
      */
     public function ideaRate(int $ideaId, int $rate): Response
     {
+        //caso de uso se resuelve en este metodo
         echo '<pre>'. print_r('Idea id :  '.$ideaId, true) . '</pre>';
         echo '<pre>'. print_r('Rate : '.$rate, true) . '</pre>';
         return new Response('');

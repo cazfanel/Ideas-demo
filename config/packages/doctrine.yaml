@@ -1,0 +1,9 @@
+# config/packages/doctrine.yaml
+
+doctrine:
+  dbal:
+    url: '%env(resolve:DATABASE_URL)%'
+    # Si necesitas configuraciones específicas de SQLite, puedes definirlas aquí
+    driver: 'pdo_sqlite'
+    server_version: '3.39'
+    charset: utf8
