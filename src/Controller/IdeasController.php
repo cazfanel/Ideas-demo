@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 final class IdeasController extends AbstractController
@@ -14,9 +15,10 @@ final class IdeasController extends AbstractController
      * @Route("/idea/rate/{ideaId}/{rate}", name="app_rate_idea")
      * @throws Exception
      */
-    public function ideaRate(int $idea, int $rate): void
+    public function ideaRate(int $ideaId, int $rate): Response
     {
-        echo '<pre>'. print_r('Idea :  '.$idea, true) . '</pre>';
+        echo '<pre>'. print_r('Idea id :  '.$ideaId, true) . '</pre>';
         echo '<pre>'. print_r('Rate : '.$rate, true) . '</pre>';
+        return new Response('');
     }
 }

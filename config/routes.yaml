@@ -3,3 +3,14 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+# config/routes.yaml
+app_rate_idea:
+    path: /idea/rate/{ideaId}/{rate}
+    controller: App\Controller\IdeasController::ideaRate
+    methods: [GET]
+    defaults:
+        ideaId: 1 # Valor por defecto para ideaId
+    requirements:
+        ideaId: '\d+' # ideaId debe ser un número
+        rate: '\d+' # rate debe ser un número
