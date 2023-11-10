@@ -23,58 +23,33 @@ final class Idea
         $this->email = $email;
     }
 
-    /**
-     * @param mixed $id
-     */
-    public function setId($id): void
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @param mixed $title
-     */
-    public function setTitle($title): void
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * @param mixed $description
-     */
-    public function setDescription($description): void
-    {
-        $this->description = $description;
-    }
-
-    /**
-     * @param mixed $rating
-     */
-    public function setRating($rating): void
-    {
-        $this->rating = $rating;
-    }
-
-    /**
-     * @param mixed $votes
-     */
-    public function setVotes($votes): void
-    {
-        $this->votes = $votes;
-    }
-
-    /**
-     * @param mixed $email
-     */
-    public function setEmail($email): void
-    {
-        $this->email = $email;
-    }
-
     public function addRating($rating): void
     {
-        $this->rating = $rating;
+        $this->votes[] = $rating;
+        $count = count($this->votes);
+        $total = array_sum($this->votes);
+        $this->rating = number_format($total / $count, 2);
     }
 
+    public function getVotes(): array
+    {
+        return $this->votes;
+    }
 
+    public function getRating(): float
+    {
+        return $this->rating;
+    }
+
+    public function asArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'description' => $this->description,
+            'rating' => $this->rating,
+            'votes' => $this->votes,
+            'email' => $this->email,
+        ];
+    }
 }

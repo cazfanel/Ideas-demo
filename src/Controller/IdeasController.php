@@ -17,45 +17,40 @@ final class IdeasController extends AbstractController
      */
     public function ideaRate(int $ideaId, int $rate): Response
     {
-        //caso de uso se resuelve en este metodo
-        echo '<pre>'. print_r('Idea id :  '.$ideaId, true) . '</pre>';
-        echo '<pre>'. print_r('Rate : '.$rate, true) . '</pre>';
-
         $path = $this->getParameter('kernel.project_dir') . '/public/mi_archivo.json';
         $json = file_get_contents($path);
-        $data = json_decode($json, true);
+        $ideas = json_decode($json, true);
 
-        echo '<pre>'. print_r($data, true) . '</pre>';
-        //busca la idea en el json (repositorio)
-        foreach ($data['ideas'] as $idea) {
+        echo '<pre>' . print_r($ideas, true) . '</pre>';
+        $ideaIndex = null;
+        foreach ($ideas['ideas'] as $index => $idea) {
             if ($idea['id'] === $ideaId) {
                 $row = $idea;
+                $ideaIndex = $index;
+                break;
             }
         }
-        
-        //si no existe la idea, tira exception
-        echo '<pre>'. print_r($row, true) . '</pre>';
 
-        // Building the idea from the database
-        $idea = new Idea();
-        $idea->setId($row['id']);
-        $idea->setTitle($row['title']);
-        $idea->setDescription($row['description']);
-        $idea->setRating($row['rating']);
-        $idea->setVotes($row['votes']);
-        $idea->setAuthor($row['email']);
-        // Add user rating
-        $idea->addRating($rating);
-        // Update the idea and save it to the database
-        $data = [
-            'votes' => $idea->getVotes(),
-            'rating' => $idea->getRating()
-        ];
-        $where['idea_id = ?'] = $ideaId;
-        $db->update('ideas', $data, $where);
-        // Redirect to view idea page
-        $this->redirect('/idea/' . $ideaId);
+        if ($ideaIndex === null) {
+            throw new Exception('Invalid id');
+        }
 
-        return new Response('');
+        echo '<pre>Antes: ' . print_r($row, true) . '</pre>';
+
+        $idea = new Idea(
+            $row['id'],
+            $row['title'],
+            $row['description'],
+            $row['rating'],
+            $row['votes'],
+            $row['email'] ?? '',
+        );
+        $idea->addRating($rate);
+        $ideas['ideas'][$ideaIndex] = $idea->asArray();
+
+        $json = file_put_contents($path, json_encode($ideas));
+        echo '<pre>Después: ' . print_r($idea->asArray(), true) . '</pre>';
+
+        return new Response('true');
     }
 }
