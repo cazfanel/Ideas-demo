@@ -31,6 +31,11 @@ final class Idea
         $this->rating = number_format($total / $count, 2);
     }
 
+    public function id(): int
+    {
+        return $this->id;
+    }
+
     public function getVotes(): array
     {
         return $this->votes;
