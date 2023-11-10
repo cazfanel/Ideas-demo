@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Application\RateIdeaUseCase;
+use App\Domain\RateIdeaRequest;
 use App\Repository\Idea\JsonIdeaRepository;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,9 +27,8 @@ final class IdeasController extends AbstractController
      */
     public function ideaRate(int $ideaId, int $rate): Response
     {
-        $idea = $this->ideaRepository->find($ideaId);
-        $idea->addRating($rate);
-        $this->ideaRepository->update($idea);
+        $useCase = new RateIdeaUseCase($this->ideaRepository);
+        $useCase->execute(new RateIdeaRequest($ideaId, $rate));
 
         return new Response('true');
     }

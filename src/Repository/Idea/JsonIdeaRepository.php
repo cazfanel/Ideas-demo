@@ -5,9 +5,10 @@ declare (strict_types = 1);
 namespace App\Repository\Idea;
 
 use App\Controller\Idea;
+use Exception;
 use Symfony\Component\HttpKernel\KernelInterface;
 
-final class JsonIdeaRepository
+final class JsonIdeaRepository implements IdeaRepository
 {
     private const FILE = '/public/mi_archivo.json';
 
