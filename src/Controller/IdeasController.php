@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Repository\Idea\IdeaRepository;
+use App\Repository\Idea\JsonIdeaRepository;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +14,7 @@ final class IdeasController extends AbstractController
 {
     private $ideaRepository;
 
-    public function __construct(IdeaRepository $ideaRepository)
+    public function __construct(JsonIdeaRepository $ideaRepository)
     {
         $this->ideaRepository = $ideaRepository;
     }
