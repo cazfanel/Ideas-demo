@@ -1,0 +1,28 @@
+{
+  "ideas": [
+    {
+      "id": 1,
+      "title": "leer El Señor de los Anillos",
+      "author": "Cristian",
+      "rating": 4.5,
+      "description": "Description",
+      "votes": [1, 2, 3, 5]
+    },
+    {
+      "id": 2,
+      "title": "leer 1984",
+      "author": "Fede",
+      "rating": 4.8,
+      "description": "Description",
+      "votes": [1, 1, 1, 1]
+    },
+    {
+      "id": 3,
+      "title": "leer Cien Años de Soledad",
+      "author": "Bruno",
+      "rating": 4.7,
+      "description": "Description",
+      "votes": [2, 5, 3]
+    }
+  ]
+}
