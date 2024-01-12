@@ -13,7 +13,7 @@ final class RedisIdeaRepository implements IdeaRepository
     {
         $this->client = new Predis\Client();
     }
-    public function find($id)
+    public function find(int $id): ?Idea
     {
         $idea = $this->client->get($this->getKey($id));
         if (!$idea) {

@@ -27,9 +27,14 @@ final class IdeasController extends AbstractController
      */
     public function ideaRate(int $ideaId, int $rate): Response
     {
-        $useCase = new RateIdeaUseCase($this->ideaRepository);
-        $useCase->execute(new RateIdeaRequest($ideaId, $rate));
-
-        return new Response('true');
+        try {
+            $useCase = new RateIdeaUseCase($this->ideaRepository);
+            $useCase->execute(new RateIdeaRequest($ideaId, $rate));
+    
+            return new Response('true');
+        } catch (Exception $exception) {
+            echo '<pre>'. print_r($exception->getMessage(), true) . '</pre>';
+            return new Response('false');
+        }
     }
 }

@@ -7,11 +7,7 @@ use App\Controller\Idea;
 
 interface IdeaRepository
 {
-    /**
-     * @param int $id
-     * @return null|Idea
-     */
-    public function find($id);
+    public function find(int $id): ?Idea;
 
     /**
      * @param Idea $idea

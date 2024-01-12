@@ -22,7 +22,7 @@ final class JsonIdeaRepository implements IdeaRepository
         $this->path = $this->kernel->getProjectDir() . self::FILE;
     }
 
-    public function find($id): Idea
+    public function find(int $id): ?Idea
     {
         $json = file_get_contents($this->path);
         $ideas = json_decode($json, true);
@@ -38,7 +38,7 @@ final class JsonIdeaRepository implements IdeaRepository
         }
 
         if ($ideaIndex === null) {
-            throw new Exception('Invalid id');
+            return null;
         }
 
         echo '<pre>Antes: ' . print_r($row, true) . '</pre>';

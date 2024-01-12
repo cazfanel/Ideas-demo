@@ -10,10 +10,10 @@ final class Idea
     private $title;
     private $description;
     private $rating;
-    private $votes;
+    private array $votes;
     private $email;
 
-    public function __construct($id, $title, $description, $rating, $votes, $email)
+    public function __construct($id, $title, $description, $rating, array $votes, $email)
     {
         $this->id = $id;
         $this->title = $title;
@@ -41,7 +41,7 @@ final class Idea
         return $this->votes;
     }
 
-    public function getRating(): float
+    public function getRating(): string
     {
         return $this->rating;
     }

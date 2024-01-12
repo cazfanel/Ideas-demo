@@ -4,33 +4,29 @@ declare(strict_types=1);
 
 namespace App\Application;
 
+use App\Controller\Idea;
 use App\Domain\RateIdeaRequest;
 use App\Repository\Idea\IdeaRepository;
-use Exception;
+use DomainException;
 
 final class RateIdeaUseCase
 {
-    private $ideaRepository;
+    private IdeaRepository $ideaRepository;
     public function __construct(IdeaRepository $ideaRepository)
     {
         $this->ideaRepository = $ideaRepository;
     }
-    public function execute(RateIdeaRequest $request)
+    public function execute(RateIdeaRequest $request): ?Idea
     {
-        try {
-            $idea = $this->ideaRepository->find($request->ideaId);
-        } catch(Exception $e) {
-            throw new RepositoryNotAvailableException();
+        $idea = $this->ideaRepository->find($request->ideaId);
+
+        if ($idea === null) {
+            throw new DomainException('Idea not found '.$request->ideaId);
         }
-        if (!$idea) {
-            throw new IdeaDoesNotExistException();
-        }
-        try {
-            $idea->addRating($request->rating);
-            $this->ideaRepository->update($idea);
-        } catch(Exception $e) {
-            throw new RepositoryNotAvailableException();
-        }
+
+        $idea->addRating($request->rating);
+        $this->ideaRepository->update($idea);
+
         return $idea;
     }
 }
